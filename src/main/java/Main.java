@@ -6,6 +6,9 @@ import java.util.Scanner;
 public class Main implements CalculatorInterface {
     private CalculatorResources resources;
 
+    Main() {
+    	resources = new CalculatorResources();
+    }
 
     public TokenList readTokens(String input) {
         // TODO: Implement this
@@ -25,8 +28,7 @@ public class Main implements CalculatorInterface {
     }
 
     private void start() {
-        resources = new CalculatorResources();
-
+        
         // Create a scanner on System.in
         Scanner consoleInput = new Scanner(System.in);
 
