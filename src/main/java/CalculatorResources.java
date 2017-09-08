@@ -75,7 +75,6 @@ public class CalculatorResources {
 		TokenList outputList = new ListToken();
 		TokenStack operatorStack = new StackToken();
 
-
 		for(int i = 0; i < tokens.size(); i++) {
 			if(tokens.get(i).getType() == Token.NUMBER_TYPE) {
 				outputList.add(tokens.get(i));
@@ -84,6 +83,9 @@ public class CalculatorResources {
 				while(operatorStack.size() > 0) {
 					if(operatorStack.top().getPrecedence() >= tokens.get(i).getPrecedence()) {
 						outputList.add(operatorStack.pop());
+					}
+					else {
+						break;
 					}
 				}
 				operatorStack.push(tokens.get(i));
@@ -108,4 +110,54 @@ public class CalculatorResources {
 		return outputList;
 	}
 
+	
+	public double RPNProcessor(TokenList tokens) {
+		TokenStack operationStack = new StackToken();
+		
+		for(int i = 0; i < tokens.size(); i++) {
+			if(tokens.get(i).getType() == Token.NUMBER_TYPE) {
+				operationStack.push(tokens.get(i));
+			}
+			else if(tokens.get(i).getType() == Token.OPERATOR_TYPE) {
+				Token operand2 = operationStack.pop();
+				Token operand1 = operationStack.pop();
+				
+				operationStack.push(calculateAnswer(operand1, operand2, tokens.get(i)));
+			}
+		}
+		
+		if(operationStack.size() == 1) {
+			return Double.parseDouble(operationStack.top().getValue());
+		}
+		else {
+			System.err.println(" Invalid input, remaining tokens on stack.");
+			return 0;
+		}
+	}
+	
+	private Token calculateAnswer(Token operand1, Token operand2, Token operator) {
+		double answer = 0;
+		
+		switch(operator.getValue().charAt(0)) {
+		case '+':
+			answer = Double.parseDouble(operand1.getValue()) + Double.parseDouble(operand2.getValue());
+			break;
+		case '-':
+			answer = Double.parseDouble(operand1.getValue()) - Double.parseDouble(operand2.getValue());
+			break;
+		case '*':
+			answer = Double.parseDouble(operand1.getValue()) * Double.parseDouble(operand2.getValue());
+			break;
+		case '/':
+			answer = Double.parseDouble(operand1.getValue()) / Double.parseDouble(operand2.getValue());
+			break;
+		case '^':
+			answer = Math.pow(Double.parseDouble(operand1.getValue()), Double.parseDouble(operand2.getValue()));
+			break;
+		}
+		
+		
+		return new TokenValue(Double.toString(answer), Token.NUMBER_TYPE);
+	}
+	
 }

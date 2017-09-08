@@ -18,8 +18,7 @@ public class Main implements CalculatorInterface {
 
 
 	public Double rpn(TokenList tokens) {
-		// TODO: Implement this
-		return null;
+		return resources.RPNProcessor(tokens);
 	}
 
 	public TokenList shuntingYard(TokenList tokens) {
@@ -36,14 +35,14 @@ public class Main implements CalculatorInterface {
 			String line = consoleInput.nextLine();
 			currentInput = readTokens(line);
 			currentInput = shuntingYard(currentInput);
+			double answer = rpn(currentInput);
+			System.out.println(answer);
 		}
 
 		// While there is input, read line and parse it.
 	}
 
 	public static void main(String[] argv) {
-		System.out.print("Yo this works!");
-		//ABC
 		new Main().start();
 	}
 }
