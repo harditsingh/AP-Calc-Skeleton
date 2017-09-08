@@ -4,10 +4,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Main implements CalculatorInterface {
+    private CalculatorResources resources;
 
 
     public TokenList readTokens(String input) {
         // TODO: Implement this
+        resources.readTokens(input);
         return null;
     }
 
@@ -23,7 +25,15 @@ public class Main implements CalculatorInterface {
     }
 
     private void start() {
+        resources = new CalculatorResources();
+
         // Create a scanner on System.in
+        Scanner consoleInput = new Scanner(System.in);
+
+        while (consoleInput.hasNext()) {
+            String line = consoleInput.nextLine();
+            readTokens(line);
+        }
         
         // While there is input, read line and parse it.
     }
