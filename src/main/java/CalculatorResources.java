@@ -6,7 +6,7 @@ public class CalculatorResources {
 	 * */
 	
     private static final String OPERATOR_TOKENS = "+-*/^";
-    private static final String PARENTHASES_TOKENS = "()";
+    private static final String PARENTHESES_TOKENS = "()";
 
     public TokenList readTokens(String input) {
         // Create scanner from input parameter, and declare the ListToken result
@@ -33,9 +33,9 @@ public class CalculatorResources {
 
 
     private boolean isParentheses(String token) {
-        if (token.charAt(0) == PARENTHASES_TOKENS.charAt(0)) {
+        if (token.charAt(0) == PARENTHESES_TOKENS.charAt(0)) {
             return true;
-        } else if (token.charAt(0) == PARENTHASES_TOKENS.charAt(1)) {
+        } else if (token.charAt(0) == PARENTHESES_TOKENS.charAt(1)) {
             return true;
         }
         return false;
