@@ -115,10 +115,11 @@ public class CalculatorResources {
 		TokenStack operationStack = new StackToken();
 		
 		for(int i = 0; i < tokens.size(); i++) {
-			if(tokens.get(i).getType() == Token.NUMBER_TYPE) {
+		    Token currentToken = tokens.get(i);
+			if(currentToken.getType() == Token.NUMBER_TYPE) {
 				operationStack.push(tokens.get(i));
 			}
-			else if(tokens.get(i).getType() == Token.OPERATOR_TYPE) {
+			else if(currentToken.getType() == Token.OPERATOR_TYPE) {
 				Token operand2 = operationStack.pop();
 				Token operand1 = operationStack.pop();
 				

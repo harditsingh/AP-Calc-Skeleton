@@ -1,34 +1,59 @@
 import java.util.ArrayList;
 
 public class ListToken implements TokenList {
-    private ArrayList<Token> tokenArrayList;
+    public Token[] tokenArrayList = new Token[0];
 
-    public ListToken () {
-        tokenArrayList = new ArrayList<>();
-    }
 
     @Override
     public void add(Token token) {
-        tokenArrayList.add(token);
+        int newLength = tokenArrayList.length + 1;
+        Token[] newArray = new Token[newLength];
+        for (int i = 0; i < newLength; i++) {
+            if (i == (newLength - 1)) {
+                newArray[i] = token;
+            } else {
+                newArray[i] = tokenArrayList[i];
+            }
+        }
+        tokenArrayList = newArray;
     }
 
     @Override
     public void remove(int index) {
-        tokenArrayList.remove(index);
+        int newLength = tokenArrayList.length - 1;
+        Token[] newArray = new Token[newLength];
+        for (int i = 0; i < newLength; i++) {
+            if (i == index) {
+                i++;
+                newArray[index] = tokenArrayList[i];
+            } else {
+                newArray[i] = tokenArrayList[i];
+            }
+        }
+        tokenArrayList = newArray;
     }
 
     @Override
     public void set(int index, Token token) {
-        tokenArrayList.add(index, token);
+        int newLength = tokenArrayList.length + 1;
+        Token[] newArray = new Token[newLength];
+        for (int i = 0; i < newLength; i++) {
+            if (i == index) {
+                newArray[index] = token;
+            } else {
+                newArray[i] = tokenArrayList[i];
+            }
+        }
+        tokenArrayList = newArray;
     }
 
     @Override
     public Token get(int index) {
-        return tokenArrayList.get(index);
+        return tokenArrayList[index];
     }
 
     @Override
     public int size() {
-        return tokenArrayList.size();
+        return tokenArrayList.length;
     }
 }
