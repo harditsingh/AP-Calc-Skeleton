@@ -33,6 +33,11 @@ public class Main implements CalculatorInterface {
 
 		while (consoleInput.hasNext()) {
 			String line = consoleInput.nextLine();
+			
+			if(line.equals("exit")) {
+				break;
+			}
+			
 			currentInput = readTokens(line);
 			currentInput = shuntingYard(currentInput);
 			double answer = rpn(currentInput);
