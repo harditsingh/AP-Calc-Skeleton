@@ -17,13 +17,13 @@ public class ConcreteDoubleStack implements DoubleStack {
 
     @Override
     public Double pop() {
-        int newLength = doubleStack.length - 1;
-        Double[] newStack = new Double[newLength];
+        int length = doubleStack.length;
+        Double[] newStack = new Double[length - 1];
 
         Double result = 0.0;
-        for (int i = 0; i < newLength; i++) {
-            if (i == newLength) {
-                result = newStack[i];
+        for (int i = 0; i < length; i++) {
+            if (i == (length - 1)) {
+                result = doubleStack[i];
             } else {
                 newStack[i] = doubleStack[i];
             }
