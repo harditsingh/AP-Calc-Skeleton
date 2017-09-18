@@ -9,20 +9,20 @@ public class CalculatorResources {
 	private static final String PARENTHESES_TOKENS = "()";
 
 	public TokenList readTokens(String input) {
-		// Create scanner from input parameter, and declare the ListToken result
+		// Create scanner from input parameter, and declare the ConcreteTokenList result
 		Scanner in = new Scanner(input);
-		TokenList result = new ListToken();
+		TokenList result = new ConcreteTokenList();
 
-		// While loop that runs through the string, identifies each character, and fills the ListToken result with tokens
+		// While loop that runs through the string, identifies each character, and fills the ConcreteTokenList result with tokens
 		while (in.hasNext()) {
 			String newToken = in.next();
 
 			if (isNumber(newToken)) {
-				result.add(new TokenValue(newToken, Token.NUMBER_TYPE));
+				result.add(new ConcreteToken(newToken, Token.NUMBER_TYPE));
 			} else if (isOperator(newToken)) {
-				result.add(new TokenValue(newToken, Token.OPERATOR_TYPE, setPrecedence(newToken)));
+				result.add(new ConcreteToken(newToken, Token.OPERATOR_TYPE, setPrecedence(newToken)));
 			} else if (isParentheses(newToken)) {
-				result.add(new TokenValue(newToken, Token.PARENTHESIS_TYPE));
+				result.add(new ConcreteToken(newToken, Token.PARENTHESIS_TYPE));
 			} else {
 				System.out.println("Error identifying token type");
 			}
@@ -72,8 +72,8 @@ public class CalculatorResources {
 
 
 	public TokenList shuntingYard(TokenList tokens) {
-		TokenList outputList = new ListToken();
-		TokenStack operatorStack = new StackToken();
+		TokenList outputList = new ConcreteTokenList();
+		TokenStack operatorStack = new ConcreteTokenStack();
 
 		for(int i = 0; i < tokens.size(); i++) {
 			if(tokens.get(i).getType() == Token.NUMBER_TYPE) {
@@ -112,23 +112,23 @@ public class CalculatorResources {
 
 	
 	public double RPNProcessor(TokenList tokens) {
-		TokenStack operationStack = new StackToken();
+		DoubleStack operationStack = new ConcreteDoubleStack();
 		
 		for(int i = 0; i < tokens.size(); i++) {
 		    Token currentToken = tokens.get(i);
 			if(currentToken.getType() == Token.NUMBER_TYPE) {
-				operationStack.push(tokens.get(i));
+				operationStack.push(Double.parseDouble(tokens.get(i).getValue()));
 			}
 			else if(currentToken.getType() == Token.OPERATOR_TYPE) {
-				Token operand2 = operationStack.pop();
-				Token operand1 = operationStack.pop();
+				double operand2 = operationStack.pop();
+				double operand1 = operationStack.pop();
 				
 				operationStack.push(calculateAnswer(operand1, operand2, tokens.get(i)));
 			}
 		}
 		
 		if(operationStack.size() == 1) {
-			return Double.parseDouble(operationStack.top().getValue());
+			return operationStack.top();
 		}
 		else {
 			System.err.println(" Invalid input, remaining tokens on stack.");
@@ -136,29 +136,29 @@ public class CalculatorResources {
 		}
 	}
 	
-	private Token calculateAnswer(Token operand1, Token operand2, Token operator) {
+	private double calculateAnswer(double operand1, double operand2, Token operator) {
 		double answer = 0;
 		
 		switch(operator.getValue().charAt(0)) {
 		case '+':
-			answer = Double.parseDouble(operand1.getValue()) + Double.parseDouble(operand2.getValue());
+			answer = operand1 + operand2;
 			break;
 		case '-':
-			answer = Double.parseDouble(operand1.getValue()) - Double.parseDouble(operand2.getValue());
+			answer = operand1 - operand2;
 			break;
 		case '*':
-			answer = Double.parseDouble(operand1.getValue()) * Double.parseDouble(operand2.getValue());
+			answer = operand1 * operand2;
 			break;
 		case '/':
-			answer = Double.parseDouble(operand1.getValue()) / Double.parseDouble(operand2.getValue());
+			answer = operand1 / operand2;
 			break;
 		case '^':
-			answer = Math.pow(Double.parseDouble(operand1.getValue()), Double.parseDouble(operand2.getValue()));
+			answer = Math.pow(operand1, operand2);
 			break;
 		}
 		
 		
-		return new TokenValue(Double.toString(answer), Token.NUMBER_TYPE);
+		return answer;
 	}
 	
 }

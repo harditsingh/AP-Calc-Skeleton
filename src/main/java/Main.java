@@ -1,6 +1,3 @@
-import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Main implements CalculatorInterface {
@@ -9,7 +6,7 @@ public class Main implements CalculatorInterface {
 
 	Main() {
 		resources = new CalculatorResources();
-		currentInput = new ListToken();
+		currentInput = new ConcreteTokenList();
 	}
 
 	public TokenList readTokens(String input) {
