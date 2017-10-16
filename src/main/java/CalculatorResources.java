@@ -28,6 +28,7 @@ public class CalculatorResources {
 			}
 		}
 
+		in.close();
 		return result;
 	}
 
@@ -67,7 +68,9 @@ public class CalculatorResources {
 
 	private boolean isNumber(String token) {
 		Scanner in = new Scanner(token);
-		return in.hasNextDouble();
+		boolean temp = in.hasNextDouble();
+		in.close();
+		return temp;
 	}
 
 

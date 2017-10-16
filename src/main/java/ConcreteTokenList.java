@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 
 public class ConcreteTokenList implements TokenList {
     private Token[] tokenArrayList = new Token[0];

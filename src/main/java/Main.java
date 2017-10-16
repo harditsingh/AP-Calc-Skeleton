@@ -19,7 +19,6 @@ public class Main implements CalculatorInterface {
 	}
 
 	public TokenList shuntingYard(TokenList tokens) {
-		// TODO: Implement this
 		return resources.shuntingYard(tokens);
 	}
 
@@ -41,7 +40,7 @@ public class Main implements CalculatorInterface {
 			System.out.println(answer);
 		}
 
-		// While there is input, read line and parse it.
+		consoleInput.close();
 	}
 
 	public static void main(String[] argv) {
