@@ -25,6 +25,7 @@ public class CalculatorResources {
 				result.add(new ConcreteToken(newToken, Token.PARENTHESIS_TYPE));
 			} else {
 				System.out.println("Error identifying token type");
+				return null;
 			}
 		}
 

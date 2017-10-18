@@ -23,21 +23,23 @@ public class Main implements CalculatorInterface {
 	}
 
 	private void start() {
-
+		System.out.println(Double.NEGATIVE_INFINITY + 1);
 		// Create a scanner on System.in
 		Scanner consoleInput = new Scanner(System.in);
 
 		while (consoleInput.hasNext()) {
 			String line = consoleInput.nextLine();
-			
+
 			if(line.equals("exit")) {
 				break;
 			}
-			
+
 			currentInput = readTokens(line);
-			currentInput = shuntingYard(currentInput);
-			double answer = rpn(currentInput);
-			System.out.println(answer);
+			if(currentInput != null) {
+				currentInput = shuntingYard(currentInput);
+				double answer = rpn(currentInput);
+				System.out.println(answer);
+			}
 		}
 
 		consoleInput.close();
