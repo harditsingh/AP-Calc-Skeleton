@@ -40,7 +40,7 @@ public class Main implements CalculatorInterface {
 			if(currentInput != null) {
 				currentInput = shuntingYard(currentInput);
 				double answer = rpn(currentInput);
-				System.out.println(answer);
+				System.out.printf("%.6f\n", answer);
 			}
 		}
 
