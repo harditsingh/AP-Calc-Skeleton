@@ -29,7 +29,6 @@ public class CalculatorResources {
 			}
 		}
 
-		// Close scanner and return TokenList result
 		in.close();
 		return result;
 	}
@@ -79,7 +78,6 @@ public class CalculatorResources {
 	}
 
 	public TokenList shuntingYard(TokenList tokens) {
-		// Initialise our TokenList & TokenStack
 		TokenList outputList = new ConcreteTokenList();
 		TokenStack operatorStack = new ConcreteTokenStack();
 
@@ -107,12 +105,11 @@ public class CalculatorResources {
 					while(!operatorStack.top().getValue().equals("(")) {
 						outputList.add(operatorStack.pop());
 					}
-					operatorStack.pop(); //To pop off the left parenthesis from stack
+					operatorStack.pop();
 				}
 			}
 		}
 
-		// If there are operators left on the stack, transfer them each to the outputList
 		while(operatorStack.size() > 0) {
 			outputList.add(operatorStack.pop());
 		}
@@ -120,11 +117,11 @@ public class CalculatorResources {
 		return outputList;
 	}
 
-	
+
+	// Using a DoubleStack for RPN, perform the calculations in the TokenList
 	public double RPNProcessor(TokenList tokens) {
 		DoubleStack operationStack = new ConcreteDoubleStack();
 
-		// Using a DoubleStack for RPN, perform the calculations in the TokenList
 		for(int i = 0; i < tokens.size(); i++) {
 		    Token currentToken = tokens.get(i);
 			if(currentToken.getType() == Token.NUMBER_TYPE) {

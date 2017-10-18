@@ -25,14 +25,12 @@ public class Main implements CalculatorInterface {
 	}
 
 	private void start() {
-		// Create a scanner on System.in
 		Scanner consoleInput = new Scanner(System.in);
 
 		// Goes through all the lines and performs and outputs calculations
 		while (consoleInput.hasNext()) {
 			String line = consoleInput.nextLine();
 
-			// Check if the command was to exit the program
 			if(line.equals("exit")) {
 				break;
 			}
@@ -46,7 +44,6 @@ public class Main implements CalculatorInterface {
 			}
 		}
 
-		// Close scanner
 		consoleInput.close();
 	}
 
