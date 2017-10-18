@@ -77,11 +77,11 @@ public class CalculatorResources {
 		return temp;
 	}
 
+	// Determine each token's type and fill up the outputList so that it's ready for RPN
 	public TokenList shuntingYard(TokenList tokens) {
 		TokenList outputList = new ConcreteTokenList();
 		TokenStack operatorStack = new ConcreteTokenStack();
 
-		// Determine each token's type and fill up the outputList so that it's ready for RPN
 		for(int i = 0; i < tokens.size(); i++) {
 			if(tokens.get(i).getType() == Token.NUMBER_TYPE) {
 				outputList.add(tokens.get(i));
