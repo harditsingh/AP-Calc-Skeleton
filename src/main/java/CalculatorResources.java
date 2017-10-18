@@ -29,11 +29,12 @@ public class CalculatorResources {
 			}
 		}
 
+		// Close scanner and return TokenList result
 		in.close();
 		return result;
 	}
 
-
+	// Given a token in the form of a string, it returns the precedence of this token as int
 	private int setPrecedence(String token) {
 		int precedence = 0;
 
@@ -49,6 +50,7 @@ public class CalculatorResources {
 		return 0;
 	}
 
+	// This method checks if the provided String's first char is either an opening or closing parenthesis or not
 	private boolean isParentheses(String token) {
 		if (token.charAt(0) == PARENTHESES_TOKENS.charAt(0)) {
 			return true;
@@ -58,6 +60,7 @@ public class CalculatorResources {
 		return false;
 	}
 
+	// This method checks if the provided String's first char is an operator or not
 	private boolean isOperator(String token) {
 		for (int i = 0; i < OPERATOR_TOKENS.length(); i++) {
 			if (token.charAt(0) == OPERATOR_TOKENS.charAt(i)) {
@@ -67,6 +70,7 @@ public class CalculatorResources {
 		return false;
 	}
 
+	// This method checks if the provided String's first char is a number or not
 	private boolean isNumber(String token) {
 		Scanner in = new Scanner(token);
 		boolean temp = in.hasNextDouble();
@@ -74,11 +78,12 @@ public class CalculatorResources {
 		return temp;
 	}
 
-
 	public TokenList shuntingYard(TokenList tokens) {
+		// Initialise our TokenList & TokenStack
 		TokenList outputList = new ConcreteTokenList();
 		TokenStack operatorStack = new ConcreteTokenStack();
 
+		// Determine each token's type and fill up the outputList so that it's ready for RPN
 		for(int i = 0; i < tokens.size(); i++) {
 			if(tokens.get(i).getType() == Token.NUMBER_TYPE) {
 				outputList.add(tokens.get(i));
@@ -107,6 +112,7 @@ public class CalculatorResources {
 			}
 		}
 
+		// If there are operators left on the stack, transfer them each to the outputList
 		while(operatorStack.size() > 0) {
 			outputList.add(operatorStack.pop());
 		}
@@ -117,7 +123,8 @@ public class CalculatorResources {
 	
 	public double RPNProcessor(TokenList tokens) {
 		DoubleStack operationStack = new ConcreteDoubleStack();
-		
+
+		// Using a DoubleStack for RPN, perform the calculations in the TokenList
 		for(int i = 0; i < tokens.size(); i++) {
 		    Token currentToken = tokens.get(i);
 			if(currentToken.getType() == Token.NUMBER_TYPE) {
@@ -130,7 +137,8 @@ public class CalculatorResources {
 				operationStack.push(calculateAnswer(operand1, operand2, tokens.get(i)));
 			}
 		}
-		
+
+		// Our result should be the last token left on the stack
 		if(operationStack.size() == 1) {
 			return operationStack.top();
 		}
@@ -139,7 +147,8 @@ public class CalculatorResources {
 			return 0;
 		}
 	}
-	
+
+	// Performs +, -, *, or / calculations, given two operands and returns answer
 	private double calculateAnswer(double operand1, double operand2, Token operator) {
 		double answer = 0;
 		
@@ -160,8 +169,6 @@ public class CalculatorResources {
 			answer = Math.pow(operand1, operand2);
 			break;
 		}
-		
-		
 		return answer;
 	}
 	
